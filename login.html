@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>IELTS LOGIN PAGE</title>
+  <link rel="icon" href="img/295128.png">
+
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+  <style>
+    :root {
+      --primary: #2196F3;
+    }
+
+    body {
+      font-family: "Open Sans", sans-serif;
+      height: 100vh;
+      background: url("https://wallpapers.com/images/hd/wolf-study-4k-a7ni7gskm6rd4hy8.jpg") 50% fixed;
+      background-size: cover;
+      margin: 0;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    @keyframes spinner {
+      0% { transform: rotateZ(0deg); }
+      100% { transform: rotateZ(359deg); }
+    }
+
+    .wrapper {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      justify-content: center;
+      width: 100%;
+      min-height: 100vh;
+      padding: 20px;
+      background: rgba(0, 0, 0, 0.6);
+    }
+
+    .login {
+      position: relative;
+      background: #fff;
+      padding: 20px;
+      padding-bottom: 80px;
+      width: 90%;
+      max-width: 320px;
+      border-radius: 5px;
+      box-shadow: 0px 1px 5px rgba(0,0,0,0.3);
+    }
+
+    .login.loading button {
+      max-height: 100%;
+      padding-top: 50px;
+    }
+
+    .login.loading button .spinner {
+      opacity: 1;
+      top: 40%;
+    }
+
+    .login.ok button {
+      background-color: #8bc34a;
+    }
+
+    .login.ok button .spinner {
+      border-radius: 0;
+      border-top-color: transparent;
+      border-right-color: transparent;
+      height: 20px;
+      animation: none;
+      transform: rotateZ(-45deg);
+    }
+
+    .login .title {
+      color: #444;
+      font-size: 1.2em;
+      font-weight: bold;
+      margin: 10px 0 30px 0;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 20px;
+      text-align: center;
+    }
+
+    .login input {
+      display: block;
+      padding: 15px 10px;
+      margin-bottom: 10px;
+      width: 100%;
+      border: 1px solid #ddd;
+      border-radius: 2px;
+      color: #444;
+      transition: border-left-width 0.2s ease;
+    }
+
+    .login input:focus {
+      border-color: var(--primary);
+      border-left-width: 5px;
+      outline: none;
+    }
+
+    .login a {
+      font-size: 0.8em;
+      color: var(--primary);
+      text-decoration: none;
+      display: block;
+      text-align: right;
+    }
+
+    .login button {
+      width: 100%;
+      padding: 10px;
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      margin-top: 20px;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      height: 60px;
+      border-radius: 0 0 2px 2px;
+      font-size: 1em;
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
+
+    .login button .spinner {
+      display: block;
+      width: 40px;
+      height: 40px;
+      position: absolute;
+      border: 4px solid #ffffff;
+      border-top-color: rgba(255,255,255,0.3);
+      border-radius: 50%;
+      left: 50%;
+      top: 0;
+      opacity: 0;
+      margin-left: -20px;
+      margin-top: -20px;
+      animation: spinner 0.6s infinite linear;
+      transition: top 0.3s 0.3s ease, opacity 0.3s 0.3s ease;
+    }
+
+    .login:not(.loading) button:hover {
+      background: #1976D2;
+    }
+
+    footer {
+      display: block;
+      padding-top: 50px;
+      text-align: center;
+      color: #ddd;
+      font-weight: normal;
+      text-shadow: 0px -1px 0px rgba(0,0,0,0.2);
+      font-size: 0.8em;
+    }
+
+    footer a {
+      color: #fff;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="wrapper">
+    <form class="login" id="loginForm">
+      <p class="title">Log in</p>
+      <input type="text" placeholder="Username" required autofocus />
+      <input type="password" placeholder="Password" required />
+      <a href="#">Forgot your password?</a>
+      <button type="submit">
+        <i class="spinner"></i>
+        <span class="state">Log in</span>
+      </button>
+    </form>
+  </div>
+
+  <script>
+    const form = document.getElementById('loginForm');
+    const button = form.querySelector('button');
+    const state = button.querySelector('.state');
+    const spinner = button.querySelector('.spinner');
+    let working = false;
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      if (working) return;
+      working = true;
+
+      form.classList.add('loading');
+      state.textContent = 'Authenticating...';
+
+      setTimeout(() => {
+        form.classList.add('ok');
+        state.textContent = 'Welcome back!';
+
+        setTimeout(() => {
+          // 🚀 Redirect to index.html after successful login
+          window.location.href = "index.html";
+        }, 1500);
+
+      }, 2500); // Simulated "checking login" delay
+    });
+  </script>
+
+</body>
+</html>
